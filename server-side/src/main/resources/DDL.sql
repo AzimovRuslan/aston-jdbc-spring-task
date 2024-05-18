@@ -17,7 +17,8 @@ create table if not exists employees
     name             varchar(50) not null,
     surname          varchar(50) not null,
     role_id          smallint    not null references employee_roles (id),
-    personal_info_id int         not null unique references employees_personal_info (id)
+    personal_info_id int         not null unique references employees_personal_info (id) on delete cascade,
+    check ( role_id > 0 and personal_info_id > 0)
 );
 
 create table if not exists projects
@@ -29,5 +30,7 @@ create table if not exists projects
 create table if not exists projects_employees
 (
     project_id  int not null references projects (id),
-    employee_id int not null references employees (id)
+    employee_id int not null references employees (id),
+    check ( project_id > 0 and employee_id > 0),
+    primary key (project_id, employee_id)
 );
