@@ -1,7 +1,5 @@
 package io.aston.serverside;
 
-import io.aston.serverside.dao.DAOInterface;
-import io.aston.serverside.dao.EmployeeRoleDAO;
 import io.aston.serverside.entity.EmployeeRole;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

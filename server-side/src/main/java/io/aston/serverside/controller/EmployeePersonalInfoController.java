@@ -1,7 +1,7 @@
 package io.aston.serverside.controller;
 
 import io.aston.serverside.dao.DAOInterface;
-import io.aston.serverside.entity.EmployeeRole;
+import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,15 +11,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v0/employee-roles")
+@RequestMapping("api/v0/employees-personal-info")
 @AllArgsConstructor
 @Slf4j
-public class EmployeeRoleController {
+public class EmployeePersonalInfoController {
 
-    private final DAOInterface<EmployeeRole> daoInterface;
+    private final DAOInterface<EmployeePersonalInfo> daoInterface;
 
     @GetMapping("/")
-    public List<EmployeeRole> getAll() {
+    public List<EmployeePersonalInfo> getAll() {
         try {
             return daoInterface.getAll();
         } catch (SQLException e) {
@@ -29,7 +29,7 @@ public class EmployeeRoleController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeRole getById(@PathVariable("id") long id) {
+    public EmployeePersonalInfo getById(@PathVariable("id") long id) {
         try {
             return daoInterface.getById(id);
         } catch (SQLException e) {
@@ -39,18 +39,18 @@ public class EmployeeRoleController {
     }
 
     @PostMapping
-    public void save(@RequestBody EmployeeRole employeeRole) {
+    public void save(@RequestBody EmployeePersonalInfo employeePersonalInfo) {
         try {
-            daoInterface.save(employeeRole);
+            daoInterface.save(employeePersonalInfo);
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
         }
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody EmployeeRole employeeRole) {
+    public void update(@PathVariable("id") Long id, @RequestBody EmployeePersonalInfo employeePersonalInfo) {
         try {
-            daoInterface.update(id, employeeRole);
+            daoInterface.update(id, employeePersonalInfo);
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
         }

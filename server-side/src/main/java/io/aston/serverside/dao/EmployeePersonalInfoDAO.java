@@ -1,7 +1,6 @@
 package io.aston.serverside.dao;
 
 import io.aston.serverside.entity.EmployeePersonalInfo;
-import io.aston.serverside.entity.EmployeeRole;
 import io.aston.serverside.exception.sql.FailedDeleteException;
 import io.aston.serverside.exception.sql.FailedSaveException;
 import io.aston.serverside.exception.sql.FailedUpdateException;
@@ -23,8 +22,8 @@ import java.util.List;
 @Data
 @Slf4j
 public class EmployeePersonalInfoDAO implements DAOInterface<EmployeePersonalInfo> {
-    private static DataSource dataSource;
 
+    private static DataSource dataSource;
 
     @Override
     public List<EmployeePersonalInfo> getAll() throws SQLException {
