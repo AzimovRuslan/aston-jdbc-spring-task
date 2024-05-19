@@ -1,24 +1,35 @@
 package io.aston.serverside.dao;
 
+import io.aston.serverside.aspect.Constants;
 import io.aston.serverside.aspect.db.DbConnectorSingleton;
 import io.aston.serverside.entity.EmployeeRole;
 import lombok.Data;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.springframework.stereotype.Component;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
+@Component
 public class EmployeeRoleDAO implements DAOInterface<EmployeeRole> {
+
+    private static Connection connection;
+
+    static {
+        try {
+            connection = DriverManager.getConnection(Constants.URL, Constants.USERNAME, Constants.PASSWORD);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     @Override
     public List<EmployeeRole> getAll() {
         String query = "select id, role from employee_roles";
         List<EmployeeRole> employeeRoles = new ArrayList<>();
 
-        try (Connection connection = DbConnectorSingleton.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -44,8 +55,8 @@ public class EmployeeRoleDAO implements DAOInterface<EmployeeRole> {
     public void save(EmployeeRole employeeRole) {
         String query = "insert into employee_roles (role) values (?)";
 
-        try(Connection connection = DbConnectorSingleton.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DbConnectorSingleton.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, employeeRole.getRole());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

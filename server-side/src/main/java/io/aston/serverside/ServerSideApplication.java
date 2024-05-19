@@ -12,9 +12,10 @@ public class ServerSideApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServerSideApplication.class, args);
 
-		DAOInterface<EmployeeRole> employeeRoleDAOInterface = new EmployeeRoleDAO();
-		EmployeeRole employeeRole = new EmployeeRole("Developer");
-		employeeRoleDAOInterface.save(employeeRole);
+//		DAOInterface<EmployeeRole> employeeRoleDAOInterface = new EmployeeRoleDAO();
+//		System.out.println(employeeRoleDAOInterface.getAll());
+////		EmployeeRole employeeRole = new EmployeeRole("Developer");
+////		employeeRoleDAOInterface.save(employeeRole);
 	}
 
 }
