@@ -85,7 +85,7 @@ public class EmployeePersonalInfoDAO implements DAOInterface<EmployeePersonalInf
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, employeePersonalInfo.getEmail());
-            preparedStatement.setString(1, employeePersonalInfo.getPhone());
+            preparedStatement.setString(2, employeePersonalInfo.getPhone());
             int out = preparedStatement.executeUpdate();
 
             if (out != 0) {
