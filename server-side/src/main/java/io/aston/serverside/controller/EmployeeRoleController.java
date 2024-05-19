@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class EmployeeRoleController {
             return daoInterface.getAll();
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
-            return null;
+            return Collections.emptyList();
         }
     }
 

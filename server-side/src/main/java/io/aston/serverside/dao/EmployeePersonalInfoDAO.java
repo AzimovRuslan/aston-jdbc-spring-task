@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class EmployeePersonalInfoDAO implements DAOInterface<EmployeePersonalInfo> {
 
-    private static DataSource dataSource;
+    private final DataSource dataSource;
 
     @Override
     public List<EmployeePersonalInfo> getAll() throws SQLException {
@@ -38,7 +38,7 @@ public class EmployeePersonalInfoDAO implements DAOInterface<EmployeePersonalInf
                 EmployeePersonalInfo employeePersonalInfo = new EmployeePersonalInfo();
                 employeePersonalInfo.setId(resultSet.getInt("id"));
                 employeePersonalInfo.setEmail(resultSet.getString("email"));
-                employeePersonalInfo.setEmail(resultSet.getString("phone"));
+                employeePersonalInfo.setPhone(resultSet.getString("phone"));
                 employeePersonalInfos.add(employeePersonalInfo);
             }
         }

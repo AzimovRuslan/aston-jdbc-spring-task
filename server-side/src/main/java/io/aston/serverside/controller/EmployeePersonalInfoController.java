@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class EmployeePersonalInfoController {
             return daoInterface.getAll();
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -39,7 +41,7 @@ public class EmployeePersonalInfoController {
     }
 
     @PostMapping
-    public void save(@RequestBody EmployeePersonalInfo employeePersonalInfo) {
+    public void save(@Valid @RequestBody EmployeePersonalInfo employeePersonalInfo) {
         try {
             daoInterface.save(employeePersonalInfo);
         } catch (SQLException e) {
