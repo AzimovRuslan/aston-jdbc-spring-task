@@ -1,27 +1,27 @@
 package io.aston.serverside.controller;
 
 import io.aston.serverside.dao.DAOInterface;
+import io.aston.serverside.entity.Employee;
 import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v0/employees-personal-info")
+@RequestMapping("api/v0/employees")
 @AllArgsConstructor
 @Slf4j
-public class EmployeePersonalInfoController {
+public class EmployeeController {
 
-    private final DAOInterface<EmployeePersonalInfo> daoInterface;
+    private final DAOInterface<Employee> daoInterface;
 
     @GetMapping("/")
-    public List<EmployeePersonalInfo> getAll() {
+    public List<Employee> getAll() {
         try {
             return daoInterface.getAll();
         } catch (SQLException e) {
@@ -31,7 +31,7 @@ public class EmployeePersonalInfoController {
     }
 
     @GetMapping("/{id}")
-    public EmployeePersonalInfo getById(@PathVariable("id") long id) {
+    public Employee getById(@PathVariable("id") long id) {
         try {
             return daoInterface.getById(id);
         } catch (SQLException e) {
@@ -39,20 +39,19 @@ public class EmployeePersonalInfoController {
             return null;
         }
     }
-
     @PostMapping
-    public void save(@RequestBody EmployeePersonalInfo employeePersonalInfo) {
+    public void save(@RequestBody Employee employee) {
         try {
-            daoInterface.save(employeePersonalInfo);
+            daoInterface.save(employee);
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
         }
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody EmployeePersonalInfo employeePersonalInfo) {
+    public void update(@PathVariable("id") Long id, @RequestBody Employee employee) {
         try {
-            daoInterface.update(id, employeePersonalInfo);
+            daoInterface.update(id, employee);
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
         }
