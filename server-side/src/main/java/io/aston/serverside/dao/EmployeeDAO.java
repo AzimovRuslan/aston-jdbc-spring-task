@@ -1,5 +1,6 @@
 package io.aston.serverside.dao;
 
+import io.aston.serverside.dao.interfaces.DAOInterface;
 import io.aston.serverside.entity.Employee;
 import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.entity.EmployeeRole;

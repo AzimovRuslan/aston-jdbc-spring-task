@@ -1,8 +1,7 @@
 package io.aston.serverside.controller;
 
-import io.aston.serverside.dao.DAOInterface;
+import io.aston.serverside.dao.interfaces.DAOInterface;
 import io.aston.serverside.entity.Employee;
-import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

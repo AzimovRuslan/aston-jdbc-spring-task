@@ -1,13 +1,12 @@
 package io.aston.serverside.controller;
 
-import io.aston.serverside.dao.DAOInterface;
+import io.aston.serverside.dao.interfaces.DAOInterface;
 import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;

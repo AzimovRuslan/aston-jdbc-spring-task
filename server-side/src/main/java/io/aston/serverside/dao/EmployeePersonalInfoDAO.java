@@ -1,5 +1,6 @@
 package io.aston.serverside.dao;
 
+import io.aston.serverside.dao.interfaces.DAOInterface;
 import io.aston.serverside.entity.EmployeePersonalInfo;
 import io.aston.serverside.exception.sql.FailedDeleteException;
 import io.aston.serverside.exception.sql.FailedSaveException;

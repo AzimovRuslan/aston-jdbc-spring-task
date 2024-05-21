@@ -1,6 +1,6 @@
 package io.aston.serverside.controller;
 
-import io.aston.serverside.dao.DAOInterface;
+import io.aston.serverside.dao.interfaces.DAOInterface;
 import io.aston.serverside.entity.EmployeeRole;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;

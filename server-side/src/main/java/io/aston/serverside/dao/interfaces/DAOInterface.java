@@ -1,4 +1,4 @@
-package io.aston.serverside.dao;
+package io.aston.serverside.dao.interfaces;
 
 import org.springframework.stereotype.Service;
 
