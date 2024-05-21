@@ -22,6 +22,13 @@ public class Constants {
             "on projects_employees.employee_id = employees.id " +
             "where projects.id=?";
 
+    public static final String GET_EMPLOYEE_BY_ID_WITH_PROJECTS = "select projects.id as project_id, employees.id as employee_id " +
+            "from projects join projects_employees " +
+            "on projects.id = projects_employees.project_id " +
+            "join employees " +
+            "on projects_employees.employee_id = employees.id " +
+            "where employees.id=?";
+
     public static final String INSERT_INTO_EMPLOYEE_ROLES = "insert into employee_roles (role) values (?)";
     public static final String INSERT_INTO_EMPLOYEES_PERSONAL_INFO = "insert into employees_personal_info (email, phone) values (?, ?)";
     public static final String INSERT_INTO_EMPLOYEES = "insert into employees (name, surname, role_id, personal_info_id) values (?, ?, ?, ?)";

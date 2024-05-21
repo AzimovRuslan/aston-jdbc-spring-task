@@ -1,7 +1,9 @@
 package io.aston.serverside.controller;
 
 import io.aston.serverside.dao.interfaces.DAOInterface;
+import io.aston.serverside.dao.interfaces.EmployeeManipulation;
 import io.aston.serverside.entity.Employee;
+import io.aston.serverside.entity.Project;
 import io.aston.serverside.utility.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v0/employees")
@@ -18,6 +21,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final DAOInterface<Employee> daoInterface;
+    private final EmployeeManipulation employeeManipulation;
 
     @GetMapping("/")
     public List<Employee> getAll() {
@@ -38,6 +42,7 @@ public class EmployeeController {
             return null;
         }
     }
+
     @PostMapping
     public void save(@RequestBody Employee employee) {
         try {
@@ -62,6 +67,16 @@ public class EmployeeController {
             daoInterface.deleteById(id);
         } catch (SQLException e) {
             log.error(e.getMessage() + Constants.REQUEST_FAILED);
+        }
+    }
+
+    @GetMapping("/get-employee-with-project/{id}")
+    public Map<Employee, List<Project>> getEmployeeByIdWithProjects(@PathVariable("id") int id) {
+        try {
+            return employeeManipulation.getEmployeeByIdWithProjects(id);
+        } catch (SQLException e) {
+            log.error(e.getMessage() + Constants.REQUEST_FAILED);
+            return Collections.emptyMap();
         }
     }
 }

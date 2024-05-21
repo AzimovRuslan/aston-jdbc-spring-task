@@ -1,9 +1,8 @@
 package io.aston.serverside.dao;
 
 import io.aston.serverside.dao.interfaces.DAOInterface;
-import io.aston.serverside.entity.Employee;
-import io.aston.serverside.entity.EmployeePersonalInfo;
-import io.aston.serverside.entity.EmployeeRole;
+import io.aston.serverside.dao.interfaces.EmployeeManipulation;
+import io.aston.serverside.entity.*;
 import io.aston.serverside.exception.sql.FailedDeleteException;
 import io.aston.serverside.exception.sql.FailedSaveException;
 import io.aston.serverside.exception.sql.FailedUpdateException;
@@ -19,16 +18,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Data
 @Slf4j
-public class EmployeeDAO implements DAOInterface<Employee> {
+public class EmployeeDAO implements DAOInterface<Employee>, EmployeeManipulation {
 
     private final DataSource dataSource;
     private final DAOInterface<EmployeePersonalInfo> employeePersonalInfoDAO;
     private final DAOInterface<EmployeeRole> employeeRoleDAO;
+//    private final DAOInterface<Project> projectDAO;
 
     @Override
     public List<Employee> getAll() throws SQLException {
@@ -228,4 +230,44 @@ public class EmployeeDAO implements DAOInterface<Employee> {
         return daoInterface.getById(resultSet.getInt(attribute));
     }
 
+    @Override
+    public Map<Employee, List<Project>> getEmployeeByIdWithProjects(int id) throws SQLException {
+        String query = Constants.GET_EMPLOYEE_BY_ID_WITH_PROJECTS;
+        String query1 = Constants.GET_BY_ID_FROM_PROJECTS;
+
+        Map<Employee, List<Project>> employeeWithProjects = new HashMap<>();
+        List<Project> projects = new ArrayList<>();
+        Employee employee = getById(id);
+        ResultSet resultSet1 = null;
+        ResultSet resultSet2 = null;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement1 = connection.prepareStatement(query);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(query1)) {
+
+            preparedStatement1.setInt(1, id);
+            resultSet1 = preparedStatement1.executeQuery();
+
+            while (resultSet1.next()) {
+                Project project = new Project();
+                preparedStatement2.setInt(1, resultSet1.getInt("project_id"));
+                resultSet2 = preparedStatement2.executeQuery();
+
+                while (resultSet2.next()) {
+                    project.setId(resultSet2.getInt("id"));
+                    project.setName(resultSet2.getString("name"));
+                }
+
+                projects.add(project);
+            }
+        } finally {
+            if (resultSet1 != null) {
+                resultSet1.close();
+            }
+        }
+
+        employeeWithProjects.put(employee, projects);
+
+        return employeeWithProjects;
+    }
 }
