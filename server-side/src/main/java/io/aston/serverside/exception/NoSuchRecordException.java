@@ -1,4 +1,4 @@
-package io.aston.serverside.exception.sql;
+package io.aston.serverside.exception;
 
 public class NoSuchRecordException extends RuntimeException {
     public NoSuchRecordException(String message) {

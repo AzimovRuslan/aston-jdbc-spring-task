@@ -5,10 +5,10 @@ import io.aston.serverside.dao.interfaces.ProjectManipulation;
 import io.aston.serverside.entity.Employee;
 import io.aston.serverside.entity.Project;
 import io.aston.serverside.entity.ProjectToEmployee;
-import io.aston.serverside.exception.sql.FailedDeleteException;
-import io.aston.serverside.exception.sql.FailedSaveException;
-import io.aston.serverside.exception.sql.FailedUpdateException;
-import io.aston.serverside.exception.sql.NoSuchRecordException;
+import io.aston.serverside.exception.FailedDeleteException;
+import io.aston.serverside.exception.FailedSaveException;
+import io.aston.serverside.exception.FailedUpdateException;
+import io.aston.serverside.exception.NoSuchRecordException;
 import io.aston.serverside.utility.Constants;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -137,7 +137,6 @@ public class ProjectDAO implements DAOInterface<Project>, ProjectManipulation {
     @Override
     public void addEmployee(ProjectToEmployee projectToEmployee) throws SQLException {
         String query = Constants.ADD_EMPLOYEE_TO_PROJECT;
-
 
         List<Employee> employees = employeeDAO.getAll();
         List<Project> projects = getAll();
