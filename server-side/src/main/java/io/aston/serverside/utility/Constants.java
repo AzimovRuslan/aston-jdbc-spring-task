@@ -50,7 +50,7 @@ public class Constants {
     public static final String DELETE_FROM_EMPLOYEES_PERSONAL_INFO = "delete from employees_personal_info where id=?";
     public static final String DELETE_FROM_EMPLOYEES = "delete from employees where id=?";
     public static final String DELETE_FROM_PROJECTS = "delete from projects where id=?";
-
+    public static final String DELETE_EMPLOYEE_FROM_PROJECT = "delete from projects_employees where project_id=? and employee_id=?";
 
 
     public static final String GET_FROM_EMPLOYEE_ROLES_BY_ATTRIBUTES = "select * from employee_roles where role=?";
@@ -61,7 +61,7 @@ public class Constants {
     public static final String EMPLOYEE = " employee ";
     public static final String PROJECT = " project ";
 
-
+    public static final String FROM_PROJECT = " from project ";
     public static final String EMPLOYEE_PERSONAL_INFO = " employee personal info ";
     public static final String SUCCESSFUL_SAVE = " successfully saved ";
     public static final String SUCCESSFUL_ADDED = " successfully added to ";

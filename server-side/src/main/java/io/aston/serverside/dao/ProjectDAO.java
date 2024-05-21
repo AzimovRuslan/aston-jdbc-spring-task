@@ -217,4 +217,23 @@ public class ProjectDAO implements DAOInterface<Project>, ProjectManipulation {
 
         return projectToEmployees;
     }
+
+    @Override
+    public void deleteEmployee(int projectId, int employeeId) throws SQLException {
+        String query = Constants.DELETE_EMPLOYEE_FROM_PROJECT;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, projectId);
+            preparedStatement.setInt(2, employeeId);
+            int out = preparedStatement.executeUpdate();
+
+            if (out != 0) {
+                log.info(Constants.EMPLOYEE + Constants.SUCCESSFUL_DELETE + Constants.FROM_PROJECT + Constants.WITH_ID + projectId);
+            } else {
+                throw new FailedDeleteException(Constants.EMPLOYEE + Constants.UNSUCCESSFUL_DELETE + Constants.FROM_PROJECT + Constants.WITH_ID + projectId);
+            }
+        }
+    }
 }

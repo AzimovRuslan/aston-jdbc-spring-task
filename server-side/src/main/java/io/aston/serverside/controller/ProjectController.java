@@ -79,6 +79,16 @@ public class ProjectController {
         }
     }
 
+    @DeleteMapping("/delete-employee/{project_id}-{employee_id}")
+    public void deleteEmployee(@PathVariable("project_id") int projectId,
+                               @PathVariable("employee_id") int employeeId) {
+        try {
+            projectManipulation.deleteEmployee(projectId, employeeId);
+        } catch (SQLException e) {
+            log.error(e.getMessage() + Constants.REQUEST_FAILED);
+        }
+    }
+
     @GetMapping("/get-project-with-workers/")
     public List<ProjectToEmployee> getAllProjectsWithWorkers() {
         try {

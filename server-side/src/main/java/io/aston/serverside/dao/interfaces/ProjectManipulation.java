@@ -11,4 +11,6 @@ public interface ProjectManipulation {
     List<ProjectToEmployee> getAllProjectWithWorkers() throws SQLException;
 
     List<ProjectToEmployee> getProjectByIdWithWorkers(int id) throws SQLException;
+
+    void deleteEmployee(int projectId, int employeeId) throws SQLException;
 }
