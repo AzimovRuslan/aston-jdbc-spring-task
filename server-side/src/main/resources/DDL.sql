@@ -29,8 +29,8 @@ create table if not exists projects
 
 create table if not exists projects_employees
 (
-    project_id  int not null references projects (id),
-    employee_id int not null references employees (id),
+    project_id  int not null references projects (id) on delete cascade,
+    employee_id int not null references employees (id) on delete cascade,
     check ( project_id > 0 and employee_id > 0),
     primary key (project_id, employee_id)
 );
