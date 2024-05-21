@@ -232,37 +232,41 @@ public class EmployeeDAO implements DAOInterface<Employee>, EmployeeManipulation
 
     @Override
     public Map<Employee, List<Project>> getEmployeeByIdWithProjects(int id) throws SQLException {
-        String query = Constants.GET_EMPLOYEE_BY_ID_WITH_PROJECTS;
-        String query1 = Constants.GET_BY_ID_FROM_PROJECTS;
+        String employeeQuery = Constants.GET_EMPLOYEE_BY_ID_WITH_PROJECTS;
+        String projectQuery = Constants.GET_BY_ID_FROM_PROJECTS;
 
         Map<Employee, List<Project>> employeeWithProjects = new HashMap<>();
         List<Project> projects = new ArrayList<>();
         Employee employee = getById(id);
-        ResultSet resultSet1 = null;
-        ResultSet resultSet2 = null;
+        ResultSet employeeRs = null;
+        ResultSet projectRs = null;
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement1 = connection.prepareStatement(query);
-             PreparedStatement preparedStatement2 = connection.prepareStatement(query1)) {
+             PreparedStatement preparedStatement1 = connection.prepareStatement(employeeQuery);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(projectQuery)) {
 
             preparedStatement1.setInt(1, id);
-            resultSet1 = preparedStatement1.executeQuery();
+            employeeRs = preparedStatement1.executeQuery();
 
-            while (resultSet1.next()) {
+            while (employeeRs.next()) {
                 Project project = new Project();
-                preparedStatement2.setInt(1, resultSet1.getInt("project_id"));
-                resultSet2 = preparedStatement2.executeQuery();
+                preparedStatement2.setInt(1, projectRs.getInt("project_id"));
+                projectRs = preparedStatement2.executeQuery();
 
-                while (resultSet2.next()) {
-                    project.setId(resultSet2.getInt("id"));
-                    project.setName(resultSet2.getString("name"));
+                while (projectRs.next()) {
+                    project.setId(projectRs.getInt("id"));
+                    project.setName(projectRs.getString("name"));
                 }
 
                 projects.add(project);
             }
         } finally {
-            if (resultSet1 != null) {
-                resultSet1.close();
+            if (employeeRs != null) {
+                employeeRs.close();
+            }
+
+            if (projectRs != null) {
+                projectRs.close();
             }
         }
 
